@@ -1,0 +1,19 @@
+services:
+  homegear:
+    container_name: homegear
+    environment:
+      HOST_USER_GID: ${PGID}
+      HOST_USER_ID: ${PUID}
+      TZ: ${TZ}
+    hostname: homegear
+    image: homegear/homegear:nightly
+    ports:
+    - 2001:2001/tcp
+    - 2002:2002/tcp
+    - 2003:2003/tcp
+    restart: unless-stopped
+    volumes:
+    - ${MOUNT_ROOT}/homegear/etc:/etc/homegear:Z
+    - ${MOUNT_ROOT}/homegear/lib:/var/lib/homegear:Z
+    - ${MOUNT_ROOT}/homegear/log:/var/log/homegear:Z
+    - /sys:/sys:rw
